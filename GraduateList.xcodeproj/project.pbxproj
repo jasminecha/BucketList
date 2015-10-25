@@ -15,6 +15,7 @@
 		7E529EA41BDD2184001961A4 /* GraduateListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EA31BDD2184001961A4 /* GraduateListTests.swift */; };
 		7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */; };
 		7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EB01BDD226F001961A4 /* BucketListViewController.swift */; };
+		7E53E6EE1BDD4D1100D49EF2 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E53E6ED1BDD4D1100D49EF2 /* CaptureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		7E529EA51BDD2184001961A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		7E529EB01BDD226F001961A4 /* BucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
+		7E53E6ED1BDD4D1100D49EF2 /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				7E529E8E1BDD2183001961A4 /* AppDelegate.swift */,
 				7E529EB01BDD226F001961A4 /* BucketListViewController.swift */,
+				7E53E6ED1BDD4D1100D49EF2 /* CaptureViewController.swift */,
 				7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */,
 				7E529E901BDD2183001961A4 /* ViewController.swift */,
 				7E529E921BDD2183001961A4 /* Main.storyboard */,
@@ -209,6 +212,7 @@
 				7E529E8F1BDD2183001961A4 /* AppDelegate.swift in Sources */,
 				7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */,
 				7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */,
+				7E53E6EE1BDD4D1100D49EF2 /* CaptureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +406,7 @@
 				7E529EAA1BDD2184001961A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7E529EAB1BDD2184001961A4 /* Build configuration list for PBXNativeTarget "GraduateListTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +415,7 @@
 				7E529EAD1BDD2184001961A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
