@@ -34,11 +34,17 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-        
+    
+    @IBAction func doneCapture(segue:UIStoryboardSegue) {
+        // currently does the same thing as cancel hehe
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        addEvent()
         if segue.identifier == "doneSegue" {
-            name = taskName.text!
+            if((taskName.text != "")){
+                addEvent()
+                name = taskName.text!
+            }
         }
     }
 

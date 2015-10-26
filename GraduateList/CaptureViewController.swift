@@ -26,11 +26,6 @@ class CaptureViewController: UIViewController {
         
     }
     
-    @IBAction func done(segue:UIStoryboardSegue) {
-        // currently does the same thing as cancel hehe
-    }
-
-    
     @IBAction func didPressTakePhoto(sender: UIButton) {
         if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo){
             stillImageOutput?.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in

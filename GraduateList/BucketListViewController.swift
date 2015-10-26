@@ -22,8 +22,10 @@ class BucketListViewController: UITableViewController {
         let detailVC = segue.sourceViewController as! ItemDetailViewController
         newTask = detailVC.name
         
-        tasks.append(newTask)
-        self.tableView.reloadData()
+        if(newTask != ""){
+            tasks.append(newTask)
+            self.tableView.reloadData()
+        }
     }
     
     override func viewDidLoad() {
