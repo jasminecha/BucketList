@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import CoreLocation
 import EventKitUI
 import MobileCoreServices
 
-class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var taskName: UITextField!
-    var newTask = Task()
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
     var newMedia: Bool?
+    var newTask = Task()
+    var locationManager: CLLocationManager?
+    var lat: Double!
+    var lon: Double!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +39,44 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.count == 0{
+            //handle error here
+            return
+        }
+        
+        let newLocation = locations[0]
+        
+        lat = newLocation.coordinate.latitude
+        lon = newLocation.coordinate.longitude
+        newTask.latLon = (lat, lon)
+    }
+    
+    func locationManager(manager: CLLocationManager,
+        didFailWithError error: NSError){
+            print("Location manager failed with error = \(error)")
+    }
+    
+    func locationManager(manager: CLLocationManager,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus){
+            
+            print("The authorization status of location services is changed to: ", terminator: "")
+            
+            switch CLLocationManager.authorizationStatus(){
+            case .AuthorizedAlways:
+                print("Authorized")
+            case .AuthorizedWhenInUse:
+                print("Authorized when in use")
+            case .Denied:
+                print("Denied")
+            case .NotDetermined:
+                print("Not determined")
+            case .Restricted:
+                print("Restricted")
+            }
+    }
+    
     
     @IBAction func doneCapture(segue:UIStoryboardSegue) {
         // currently does the same thing as cancel hehe
@@ -74,11 +116,8 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     func addEvent() {
+        
         let eventStore = EKEventStore()
-        
-        //let startDate = NSDate()
-        
-        //let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
         
         if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
             eventStore.requestAccessToEntityType(.Event, completion: {
@@ -89,7 +128,10 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
         }
     }
+
     @IBAction func useCamera(sender: UIButton) {
+        getGPS()
+
         if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.Camera) {
                 
@@ -107,6 +149,58 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
+    
+    func createLocationManager(startImmediately startImmediately: Bool){
+        locationManager = CLLocationManager()
+        if let manager = locationManager{
+            print("Successfully created the location manager")
+            manager.delegate = self
+            if startImmediately{
+                manager.startUpdatingLocation()
+            }
+        }
+    }
+    
+    func displayAlertWithTitle(title: String, message: String){
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        
+        presentViewController(controller, animated: true, completion: nil)
+        
+    }
+    
+    
+    func getGPS(){
+        if CLLocationManager.locationServicesEnabled(){
+            
+            /* Do we have authorization to access location services? */
+            switch CLLocationManager.authorizationStatus(){
+            case .AuthorizedAlways:
+                /* Yes, always */
+                createLocationManager(startImmediately: true)
+            case .AuthorizedWhenInUse:
+                /* Yes, only when our app is in use */
+                createLocationManager(startImmediately: true)
+                print("authorized when in use")
+            case .Denied:
+                /* No */
+                displayAlertWithTitle("Not Determined",
+                    message: "Location services are not allowed for this app")
+            case .NotDetermined:
+                /* We don't know yet, we have to ask */
+                createLocationManager(startImmediately: false)
+                if let manager = self.locationManager{
+                    manager.requestWhenInUseAuthorization()
+                }
+            case .Restricted:
+                /* Restrictions have been applied, we have no access
+                to location services */
+                displayAlertWithTitle("Restricted",
+                    message: "Location services are not allowed for this app")
+            }
+        }
+    }
     
     func imagePickerController(didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         

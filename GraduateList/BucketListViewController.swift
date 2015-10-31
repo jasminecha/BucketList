@@ -12,7 +12,7 @@ import UIKit
 class BucketListViewController: UITableViewController {
 
     var tasks = [Task]()
-    var newTaskName = Task()
+    var newTask = Task()
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         
@@ -20,16 +20,17 @@ class BucketListViewController: UITableViewController {
     
     @IBAction func done(segue:UIStoryboardSegue) {
         let detailVC = segue.sourceViewController as! ItemDetailViewController
-        newTaskName = detailVC.newTask
+        newTask = detailVC.newTask
         
-        if(newTaskName.name != ""){
-            tasks.append(newTaskName)
+        if(newTask.name != ""){
+            tasks.append(newTask)
             self.tableView.reloadData()
             
-            print(newTaskName.name)
-            print(newTaskName.startDateTime)
-            print(newTaskName.endDateTime)
-            print(newTaskName.completed)
+            print(newTask.name)
+            print(newTask.startDateTime)
+            print(newTask.endDateTime)
+            print(newTask.completed)
+            print(newTask.latLon)
         }
     }
     
