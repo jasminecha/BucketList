@@ -13,7 +13,7 @@ import MobileCoreServices
 class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var taskName: UITextField!
-    var name: String = ""
+    var newTask = Task()
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
     var newMedia: Bool?
@@ -44,7 +44,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         if segue.identifier == "doneSegue" {
             if((taskName.text != "")){
                 addEvent()
-                name = taskName.text!
+                newTask.name = taskName.text!
             }
         }
     }
@@ -55,9 +55,19 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         event.title = title
         event.startDate = startDate
         event.endDate = endDate
+        
         event.calendar = eventStore.defaultCalendarForNewEvents
         do {
             try eventStore.saveEvent(event, span: .ThisEvent)
+            
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "MM-dd-yyyy hh:mm"
+            let stringDate: String = formatter.stringFromDate(event.startDate)
+            let endStringDate: String = formatter.stringFromDate(event.endDate)
+            
+            newTask.startDateTime = stringDate
+            newTask.endDateTime = endStringDate
+            
         } catch {
             print("Bad things happened")
         }

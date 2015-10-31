@@ -15,6 +15,7 @@
 		7E529EA41BDD2184001961A4 /* GraduateListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EA31BDD2184001961A4 /* GraduateListTests.swift */; };
 		7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */; };
 		7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EB01BDD226F001961A4 /* BucketListViewController.swift */; };
+		E3925F781BE51B7100C293B8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3925F771BE51B7100C293B8 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		7E529EA51BDD2184001961A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		7E529EB01BDD226F001961A4 /* BucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
+		E3925F771BE51B7100C293B8 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				7E529EB01BDD226F001961A4 /* BucketListViewController.swift */,
 				7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */,
 				7E529E901BDD2183001961A4 /* ViewController.swift */,
+				E3925F771BE51B7100C293B8 /* Task.swift */,
 				7E529E921BDD2183001961A4 /* Main.storyboard */,
 				7E529E951BDD2183001961A4 /* Assets.xcassets */,
 				7E529E971BDD2184001961A4 /* LaunchScreen.storyboard */,
@@ -207,6 +210,7 @@
 			files = (
 				7E529E911BDD2183001961A4 /* ViewController.swift in Sources */,
 				7E529E8F1BDD2183001961A4 /* AppDelegate.swift in Sources */,
+				E3925F781BE51B7100C293B8 /* Task.swift in Sources */,
 				7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */,
 				7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */,
 			);

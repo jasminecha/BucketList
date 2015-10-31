@@ -11,8 +11,8 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
-    var tasks = [String]()
-    var newTask: String = ""
+    var tasks = [Task]()
+    var newTaskName = Task()
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         
@@ -20,18 +20,23 @@ class BucketListViewController: UITableViewController {
     
     @IBAction func done(segue:UIStoryboardSegue) {
         let detailVC = segue.sourceViewController as! ItemDetailViewController
-        newTask = detailVC.name
+        newTaskName = detailVC.newTask
         
-        if(newTask != ""){
-            tasks.append(newTask)
+        if(newTaskName.name != ""){
+            tasks.append(newTaskName)
             self.tableView.reloadData()
+            
+            print(newTaskName.name)
+            print(newTaskName.startDateTime)
+            print(newTaskName.endDateTime)
+            print(newTaskName.completed)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tasks = ["Default"]
+        tasks = []
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,7 +59,7 @@ class BucketListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("carCell", forIndexPath: indexPath)
         // Configure the cell...
         
-        cell.textLabel!.text = tasks[indexPath.row]
+        cell.textLabel!.text = tasks[indexPath.row].name
         
         return cell
     }
