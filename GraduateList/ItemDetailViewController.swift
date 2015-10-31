@@ -19,8 +19,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     var newMedia: Bool?
     var newTask = Task()
     var locationManager: CLLocationManager?
-    var lat: Double!
-    var lon: Double!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,9 +47,9 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         
         let newLocation = locations[0]
         
-        lat = newLocation.coordinate.latitude
-        lon = newLocation.coordinate.longitude
-        newTask.latLon = (lat, lon)
+        newTask.lat = newLocation.coordinate.latitude
+        newTask.lon = newLocation.coordinate.longitude
+        
     }
     
     func locationManager(manager: CLLocationManager,
@@ -217,6 +216,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             if (newMedia == true) {
                 UIImageWriteToSavedPhotosAlbum(image, self,
                     "image:didFinishSavingWithError:contextInfo:", nil)
+                newTask.img = image
             } else if mediaType == strKit {
                 // Code to support video here
             }

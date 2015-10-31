@@ -17,7 +17,9 @@ class Task: NSObject {
     var tags = []
     var startDateTime = ""
     var endDateTime = ""
-    var latLon = (0.0, 0.0)
+    var lat = 0.0
+    var lon = 0.0
+    var img: UIImage!
     
     func updateName(newName: String){
         name = newName

@@ -13,6 +13,7 @@ class BucketListViewController: UITableViewController {
 
     var tasks = [Task]()
     var newTask = Task()
+    let arrayValues:NSMutableArray = []
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         
@@ -26,11 +27,16 @@ class BucketListViewController: UITableViewController {
             tasks.append(newTask)
             self.tableView.reloadData()
             
-            print(newTask.name)
-            print(newTask.startDateTime)
-            print(newTask.endDateTime)
-            print(newTask.completed)
-            print(newTask.latLon)
+            let destPath = NSTemporaryDirectory() + "saved.txt"
+            arrayValues.addObject([newTask.name, newTask.completed, newTask.startDateTime, newTask.endDateTime, newTask.lat, newTask.lon])
+            
+            if arrayValues.writeToFile(destPath, atomically: true){
+                print("writing passed!")
+            }
+            else{
+                print("Didn't pass writing")
+            }
+        
         }
     }
     
@@ -60,7 +66,17 @@ class BucketListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("carCell", forIndexPath: indexPath)
         // Configure the cell...
         
-        cell.textLabel!.text = tasks[indexPath.row].name
+        let path = NSTemporaryDirectory() + "saved.txt"
+        let readArray:NSArray? = NSArray(contentsOfFile: path)
+        if let array = readArray{
+            for item in array{
+                cell.textLabel!.text = String(item[0])
+            }
+        }
+        else{
+            print("Couldn't")
+        }
+        print(tasks[indexPath.row])
         
         return cell
     }
