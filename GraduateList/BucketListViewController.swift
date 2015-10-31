@@ -31,7 +31,7 @@ class BucketListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tasks = ["Default task"]
+        tasks = ["Default"]
     }
     
     override func didReceiveMemoryWarning() {

@@ -8,14 +8,15 @@
 
 import UIKit
 import EventKitUI
+import MobileCoreServices
 
-class ItemDetailViewController: UIViewController, UITextFieldDelegate {
-    
+class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var taskName: UITextField!
     var name: String = ""
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
+    var newMedia: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +77,62 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate {
             })
         } else {
             createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
+        }
+    }
+    @IBAction func useCamera(sender: UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerControllerSourceType.Camera) {
+                
+                let imagePicker = UIImagePickerController()
+                
+                imagePicker.delegate = self
+                imagePicker.sourceType =
+                    UIImagePickerControllerSourceType.Camera
+                imagePicker.mediaTypes = [kUTTypeImage as NSString as String]
+                imagePicker.allowsEditing = false
+                
+                self.presentViewController(imagePicker, animated: true,
+                    completion: nil)
+                newMedia = true
+        }
+    }
+    
+    
+    func imagePickerController(didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        let mediaType = info[UIImagePickerControllerMediaType] as! String
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let strKit = kUTTypeImage as String
+        
+        if mediaType == strKit {
+            let image = info[UIImagePickerControllerOriginalImage]
+                as! UIImage
+            
+            if (newMedia == true) {
+                UIImageWriteToSavedPhotosAlbum(image, self,
+                    "image:didFinishSavingWithError:contextInfo:", nil)
+            } else if mediaType == strKit {
+                // Code to support video here
+            }
+            
+        }
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
+        
+        if error != nil {
+            let alert = UIAlertController(title: "Save Failed",
+                message: "Failed to save image",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "OK",
+                style: .Cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true,
+                completion: nil)
         }
     }
 }

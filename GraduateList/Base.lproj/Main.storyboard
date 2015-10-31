@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="S3Q-J5-Jjq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="S3Q-J5-Jjq">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
@@ -7,10 +7,11 @@
         <!--Bucket List Items-->
         <scene sceneID="xwy-3F-PYy">
             <objects>
-                <tableViewController id="tCN-X8-x9J" customClass="BucketListViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="currentContext" id="tCN-X8-x9J" customClass="BucketListViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iMk-3F-xU8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carCell" id="Ogc-Co-QYA">
@@ -19,7 +20,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ogc-Co-QYA" id="TQZ-Sm-dRt">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
                                 </tableViewCellContentView>
+                                <animations/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -37,51 +40,59 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drA-Ro-dqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="687" y="382"/>
+            <point key="canvasLocation" x="688" y="387"/>
         </scene>
         <!--Item Detail View Controller-->
         <scene sceneID="kRQ-3y-5wf">
             <objects>
-                <viewController id="pe9-IO-k9A" customClass="ItemDetailViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hjp-dK-TFc"/>
-                        <viewControllerLayoutGuide type="bottom" id="w10-N1-unU"/>
-                    </layoutGuides>
+                <viewController modalPresentationStyle="currentContext" id="pe9-IO-k9A" customClass="ItemDetailViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L7k-1l-Xcf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdN-Yp-R0T">
-                                <rect key="frame" x="16" y="108" width="288" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fdN-Yp-R0T">
+                                <rect key="frame" x="16" y="140" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="pvm-Q4-w2P">
-                                <rect key="frame" x="0.0" y="216" width="320" height="78"/>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="pvm-Q4-w2P">
+                                <rect key="frame" x="0.0" y="236" width="320" height="78"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <date key="date" timeIntervalSinceReferenceDate="467477541.85012197">
                                     <!--2015-10-25 14:52:21 +0000-->
                                 </date>
                             </datePicker>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="m4A-Jt-0bl">
-                                <rect key="frame" x="0.0" y="339" width="320" height="78"/>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="m4A-Jt-0bl">
+                                <rect key="frame" x="0.0" y="359" width="320" height="78"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <date key="date" timeIntervalSinceReferenceDate="467477541.85012197">
                                     <!--2015-10-25 14:52:21 +0000-->
                                 </date>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAa-Fb-uBN">
-                                <rect key="frame" x="20" y="187" width="78" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TAa-Fb-uBN">
+                                <rect key="frame" x="20" y="207" width="78" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3W-A2-MwN">
-                                <rect key="frame" x="20" y="310" width="70" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c3W-A2-MwN">
+                                <rect key="frame" x="20" y="330" width="70" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EI3-au-fUc">
+                            <navigationBar contentMode="scaleToFill" id="EI3-au-fUc">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <items>
                                     <navigationItem title="Add Item" id="M5Z-6F-Qcg">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zl7-5d-m0s">
@@ -97,14 +108,17 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="475" width="61" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
+                                <rect key="frame" x="130" y="495" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <animations/>
                                 <state key="normal" title="Camera?"/>
                                 <connections>
-                                    <segue destination="4vi-1H-c0i" kind="modal" id="ROY-08-IIA"/>
+                                    <action selector="useCamera:" destination="pe9-IO-k9A" eventType="touchUpInside" id="sYN-23-Enh"/>
                                 </connections>
                             </button>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="3p2-ON-6Ek"/>
@@ -117,58 +131,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AiU-KV-qmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JMC-yH-Hph" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1109" y="382"/>
-        </scene>
-        <!--Capture View Controller-->
-        <scene sceneID="pe4-tG-lp9">
-            <objects>
-                <viewController id="4vi-1H-c0i" customClass="CaptureViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="slU-VE-S8s"/>
-                        <viewControllerLayoutGuide type="bottom" id="Iaf-z1-i43"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="LP5-XZ-Fy8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DY7-3q-mbQ">
-                                <rect key="frame" x="20" y="365" width="165" height="177"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4Z-5v-z4f">
-                                <rect key="frame" x="245" y="365" width="55" height="30"/>
-                                <state key="normal" title="Capture"/>
-                                <connections>
-                                    <action selector="didPressTakePhoto:" destination="4vi-1H-c0i" eventType="touchUpInside" id="51R-Zk-X9C"/>
-                                </connections>
-                            </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FUi-FH-Vu8">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Capture Image" id="FIC-90-fWo">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="K1y-Tj-B2V">
-                                            <connections>
-                                                <segue destination="gB1-dO-Vk7" kind="unwind" unwindAction="doneCapture:" id="LWx-bi-Gk3"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QhA-PF-jYx">
-                                <rect key="frame" x="20" y="69" width="280" height="288"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="blankView" destination="QhA-PF-jYx" id="pwa-gi-154"/>
-                        <outlet property="cameraView" destination="DY7-3q-mbQ" id="S2n-xT-vcR"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8U2-YX-Krp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="gB1-dO-Vk7" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1513" y="382"/>
+            <point key="canvasLocation" x="1109" y="381.99999999999994"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wzJ-ww-e5y">
@@ -178,6 +141,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bJo-DF-bLE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -186,7 +150,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fWP-Ef-MpJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="155" y="382"/>
+            <point key="canvasLocation" x="157" y="387"/>
         </scene>
     </scenes>
 </document>
