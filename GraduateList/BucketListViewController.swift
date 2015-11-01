@@ -11,7 +11,7 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
-    let path = NSTemporaryDirectory() + "save.txt"
+    let path = NSTemporaryDirectory() + "savedTask.txt"
     
     var tasks = [Task]()
     var newTask = Task()
@@ -65,15 +65,8 @@ class BucketListViewController: UITableViewController {
 //        loadValues()
         if(!added){
             for element in tasks {
-                let arrVal = NSMutableArray()
-                arrVal.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
-                
-                if arrVal.writeToFile(path, atomically: true){
-                    print("writing passed!")
-                }
-                else{
-                    print("Didn't pass writing")
-                }
+//                let arrVal = NSMutableArray()
+                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
             }
         }
 
@@ -81,7 +74,7 @@ class BucketListViewController: UITableViewController {
             tasks.append(newTask)
             self.tableView.reloadData()
             
-            arrayValues.addObject([newTask.name, newTask.descrip, newTask.completed, newTask.startDateTime, newTask.endDateTime, newTask.lat, newTask.lon])
+            arrayValues.addObject([newTask.name, newTask.descrip, newTask.completed, newTask.startDateTime, newTask.endDateTime, newTask.lat, newTask.lon]) // check why img is nil
             
             print("This is the destPath")
             print(path)
