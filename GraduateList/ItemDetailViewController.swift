@@ -4,7 +4,7 @@
 //
 //  Created by Jasmine Cha on 10/25/15.
 //  Copyright © 2015 Jasmine Cha. All rights reserved.
-//
+//  Tutorial - https://github.com/marksherriff/iOS-GPSExample
 
 import UIKit
 import CoreLocation
@@ -16,6 +16,8 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     @IBOutlet weak var taskName: UITextField!
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
+    @IBOutlet weak var taskDescrip: UITextField!
+    
     var newMedia: Bool?
     var newTask = Task()
     var locationManager: CLLocationManager?
@@ -25,6 +27,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         super.viewDidLoad()
         
         taskName.delegate = self
+        taskDescrip.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -37,6 +40,16 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "doneSegue" {
+            if((taskName.text != "")){
+                addEvent()
+                newTask.name = taskName.text!
+                newTask.descrip = taskDescrip.text!
+            }
+        }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -81,15 +94,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // currently does the same thing as cancel hehe
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "doneSegue" {
-            if((taskName.text != "")){
-                addEvent()
-                newTask.name = taskName.text!
-            }
-        }
-    }
-
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
         let event = EKEvent(eventStore: eventStore)
         
