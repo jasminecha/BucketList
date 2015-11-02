@@ -11,7 +11,7 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
-    let path = NSTemporaryDirectory() + "savedTask.txt"
+    let path = NSTemporaryDirectory() + "storage.txt"
     
     var tasks = [Task]()
     var newTask = Task()
@@ -68,6 +68,7 @@ class BucketListViewController: UITableViewController {
 //                let arrVal = NSMutableArray()
                 arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
             }
+            added = true
         }
 
         if(newTask.name != ""){
