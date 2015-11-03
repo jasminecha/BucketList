@@ -17,13 +17,20 @@ class SingleTaskViewController: UIViewController {
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var location: UILabel!
 
+    //To pass back to BucketListViewController, see "prepareForSegue
     var taskToPass = Task()
+    var indexToPass = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func markDone(){
+        taskToPass.updateCompleted(true)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -46,7 +53,6 @@ class SingleTaskViewController: UIViewController {
             completed.text = "Not yet completed"
         }
     }
-    
 
     /*
     // MARK: - Navigation

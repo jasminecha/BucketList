@@ -65,7 +65,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="gz5-Hw-Jaz">
                                             <connections>
-                                                <segue destination="xE3-1V-vRR" kind="unwind" unwindAction="doneEach:" id="oiY-E1-dz1"/>
+                                                <segue destination="xE3-1V-vRR" kind="unwind" unwindAction="doneEach:" id="TcC-YZ-ZbP"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -197,7 +197,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="504" width="61" height="30"/>
+                                <rect key="frame" x="130" y="504" width="61" height="30.000001881966316"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="Camera?"/>

@@ -25,4 +25,8 @@ class Task: NSObject {
         name = newName
     }
     
+    func updateCompleted(val: Bool){
+        completed = val
+    }
+    
 }

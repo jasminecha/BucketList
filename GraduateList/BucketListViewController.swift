@@ -13,9 +13,13 @@ class BucketListViewController: UITableViewController {
 
     let path = NSTemporaryDirectory() + "storage.txt"
     
+    var passedIndex = 0
+    
     var tasks = [Task]()
     var newTask = Task()
-    
+    //Necessary?
+    var passedTask = Task()
+
     let arrayValues:NSMutableArray = []
     var added = false
     
@@ -43,17 +47,19 @@ class BucketListViewController: UITableViewController {
         }
     }
     
-    
-    @IBAction func doneEach(segue:UIStoryboardSegue){
-        
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toEachSegue" {
             if let dest = segue.destinationViewController as? SingleTaskViewController{
                 if let index = tableView.indexPathForSelectedRow?.row{
                     dest.taskToPass = tasks[index]
+                    dest.indexToPass = index
                 }
+            }
+        } else if segue.identifier == "doneEach" {
+            if let src = segue.sourceViewController as? SingleTaskViewController{
+                passedIndex = src.indexToPass
+                passedTask = src.taskToPass
+                tasks[passedIndex] = passedTask
             }
         }
     }
