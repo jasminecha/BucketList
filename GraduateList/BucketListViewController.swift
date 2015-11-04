@@ -64,6 +64,10 @@ class BucketListViewController: UITableViewController {
         }
     }
     
+    @IBAction func doneEach(segue: UIStoryboardSegue){
+        
+    }
+    
     @IBAction func done(segue:UIStoryboardSegue) {
         let detailVC = segue.sourceViewController as! ItemDetailViewController
         newTask = detailVC.newTask

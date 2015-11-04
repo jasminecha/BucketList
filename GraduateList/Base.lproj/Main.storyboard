@@ -65,7 +65,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="gz5-Hw-Jaz">
                                             <connections>
-                                                <segue destination="xE3-1V-vRR" kind="unwind" unwindAction="doneEach:" id="TcC-YZ-ZbP"/>
+                                                <segue destination="xE3-1V-vRR" kind="unwind" identifier="doneEach" unwindAction="doneEach:" id="jS6-XF-jyD"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -109,10 +109,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MQa-A3-n9e">
+                                <rect key="frame" x="220" y="269" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Complete"/>
+                                <connections>
+                                    <action selector="onPressComplete:" destination="ka6-fG-dJ9" eventType="touchUpInside" id="Qzy-q9-Hul"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="buttonComplete" destination="MQa-A3-n9e" id="fHU-ZU-Rmn"/>
                         <outlet property="completed" destination="iSg-DH-55j" id="EjU-5v-7Nf"/>
                         <outlet property="dateTime" destination="eCA-pA-iEB" id="tXc-V1-LEI"/>
                         <outlet property="descrip" destination="EvY-iB-gbC" id="tMy-pU-jt0"/>
@@ -197,7 +206,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="504" width="61" height="30.000001881966316"/>
+                                <rect key="frame" x="130" y="504.00000174251562" width="61" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="Camera?"/>

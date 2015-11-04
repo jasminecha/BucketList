@@ -16,19 +16,20 @@ class SingleTaskViewController: UIViewController {
     @IBOutlet weak var completed: UILabel!
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var buttonComplete: UIButton!
 
     //To pass back to BucketListViewController, see "prepareForSegue
     var taskToPass = Task()
     var indexToPass = 0
     
+    @IBAction func onPressComplete(sender: UIButton) {
+        taskToPass.updateCompleted(true)
+        completed.text = "Completed"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    @IBAction func markDone(){
-        taskToPass.updateCompleted(true)
     }
     
 
