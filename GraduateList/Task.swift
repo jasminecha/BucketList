@@ -29,4 +29,21 @@ class Task: NSObject {
         completed = val
     }
     
+    func toString() -> String {
+        let s = (completed ? "True" : "False")
+        return "name: " + self.name + " completed: " + s
+    }
+    
+    //Equitable. Basically an operator override?
+    func equals(task: Task) -> Bool{
+        var b = true
+        b = b && self.name == task.name
+        b = b && self.descrip == task.descrip
+        b = b && self.startDateTime == task.startDateTime
+        b = b && self.endDateTime == task.endDateTime
+        b = b && self.completed == task.completed
+        b = b && self.lat == task.lat
+        b = b && self.lon == task.lon
+        return b
+    }
 }

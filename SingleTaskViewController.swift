@@ -28,10 +28,17 @@ class SingleTaskViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "doneEach" {
+            if let dest = segue.sourceViewController as? BucketListViewController{
+                dest.passedIndex = indexToPass
+                dest.passedTask = taskToPass
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
