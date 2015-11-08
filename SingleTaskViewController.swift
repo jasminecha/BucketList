@@ -29,8 +29,15 @@ class SingleTaskViewController: UIViewController {
         alertComplete("Complete", message: "Mark as complete?")
     }
     
-    @IBAction func done(segue: UIStoryboardSegue){
-
+    @IBAction func doneEdit(segue: UIStoryboardSegue){
+        if(segue.identifier == "doneEdit"){
+            if let src = segue.sourceViewController as? EditListViewController{
+                taskToPass.name = src.taskToPass.name
+                taskToPass.descrip = src.taskToPass.descrip
+                changed = true
+            }
+        }
+        print("printing", taskToPass.name)
     }
     
     @IBAction func cancel(segue: UIStoryboardSegue){
@@ -111,6 +118,12 @@ class SingleTaskViewController: UIViewController {
                 dest.passedTask = taskToPass
             }
         }
+        if segue.identifier == "editSegue" {
+            if let dest = segue.destinationViewController as? EditListViewController{
+                dest.taskToPass = taskToPass
+                dest.indexToPass = indexToPass
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -138,5 +151,5 @@ class SingleTaskViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-}
+    
+    }

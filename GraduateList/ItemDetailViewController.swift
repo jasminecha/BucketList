@@ -25,7 +25,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         taskName.delegate = self
         taskDescrip.delegate = self
         // Do any additional setup after loading the view.

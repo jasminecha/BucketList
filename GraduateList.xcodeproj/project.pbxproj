@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E2897EB1BEFE21500F643D9 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2897EA1BEFE21500F643D9 /* EditListViewController.swift */; };
 		7E529E8F1BDD2183001961A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529E8E1BDD2183001961A4 /* AppDelegate.swift */; };
 		7E529E911BDD2183001961A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529E901BDD2183001961A4 /* ViewController.swift */; };
 		7E529E941BDD2183001961A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E529E921BDD2183001961A4 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E2897EA1BEFE21500F643D9 /* EditListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
 		7E529E8B1BDD2183001961A4 /* GraduateList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraduateList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E529E8E1BDD2183001961A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E529E901BDD2183001961A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				7E529E8E1BDD2183001961A4 /* AppDelegate.swift */,
+				7E2897EA1BEFE21500F643D9 /* EditListViewController.swift */,
 				7E7BE5361BE6A19F00D4ECF4 /* SingleTaskViewController.swift */,
 				7E529EB01BDD226F001961A4 /* BucketListViewController.swift */,
 				7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */,
@@ -216,6 +219,7 @@
 				7E529E8F1BDD2183001961A4 /* AppDelegate.swift in Sources */,
 				E3925F781BE51B7100C293B8 /* Task.swift in Sources */,
 				7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */,
+				7E2897EB1BEFE21500F643D9 /* EditListViewController.swift in Sources */,
 				7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

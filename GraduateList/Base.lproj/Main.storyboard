@@ -122,7 +122,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <segue destination="uMr-iU-Y55" kind="modal" id="ZBe-2N-nTn"/>
+                                    <segue destination="uMr-iU-Y55" kind="modal" identifier="editSegue" id="ZBe-2N-nTn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pdd-YT-Rii">
@@ -160,10 +160,10 @@
             </objects>
             <point key="canvasLocation" x="1331" y="699"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit List View Controller-->
         <scene sceneID="OTL-X8-Xq0">
             <objects>
-                <viewController id="uMr-iU-Y55" sceneMemberID="viewController">
+                <viewController id="uMr-iU-Y55" customClass="EditListViewController" customModule="GraduateList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WPr-CW-ACZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,15 +180,53 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="xQP-me-hJy">
                                             <connections>
-                                                <segue destination="QYB-KU-WQ0" kind="unwind" unwindAction="done:" id="eYV-6n-57V"/>
+                                                <segue destination="QYB-KU-WQ0" kind="unwind" identifier="doneEdit" unwindAction="doneEdit:" id="eYV-6n-57V"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="r2y-9a-Mfu">
+                                <rect key="frame" x="129" y="464.0000008932239" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <state key="normal" title="Camera?"/>
+                                <connections>
+                                    <action selector="useCamera:" destination="pe9-IO-k9A" eventType="touchUpInside" id="1g5-Mn-MFp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wkP-7j-rRM">
+                                <rect key="frame" x="20" y="100" width="45" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OdI-zY-Pa9">
+                                <rect key="frame" x="20" y="217" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="re9-i9-cpE">
+                                <rect key="frame" x="20" y="123" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="eXi-pH-IMy">
+                                <rect key="frame" x="19" y="246" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="taskDescri" destination="eXi-pH-IMy" id="tJr-nd-TVC"/>
+                        <outlet property="taskName" destination="re9-i9-cpE" id="8lR-bR-jod"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFy-fH-2qY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QYB-KU-WQ0" userLabel="Exit" sceneMemberID="exit"/>
@@ -266,7 +304,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="504" width="61" height="30.000000911950966"/>
+                                <rect key="frame" x="130" y="504" width="61" height="30.000000852326856"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="Camera?"/>

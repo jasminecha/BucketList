@@ -61,7 +61,6 @@ class BucketListViewController: UITableViewController {
                 if let index = tableView.indexPathForSelectedRow?.row{
                     dest.taskToPass = tasks[index]
                     dest.indexToPass = index
-                    print("index before", String(index))
                 }
             }
         }
@@ -80,6 +79,7 @@ class BucketListViewController: UITableViewController {
                 src.changed = false
             }
         }
+        print("after",passedTask.name)
     }
 
     func addAndWrite(task: Task){
@@ -135,9 +135,11 @@ class BucketListViewController: UITableViewController {
     }
     
     @IBAction func done(segue:UIStoryboardSegue) {
-        let detailVC = segue.sourceViewController as! ItemDetailViewController
-        newTask = detailVC.newTask
-        addAndWrite(newTask)
+        if segue.sourceViewController is ItemDetailViewController{
+            let detailVC = segue.sourceViewController as! ItemDetailViewController
+            newTask = detailVC.newTask
+            addAndWrite(newTask)
+        }
     }
     
     override func viewDidLoad() {
