@@ -5,13 +5,13 @@
 //  Created by Jasmine Cha on 10/25/15.
 //  Copyright © 2015 Jasmine Cha. All rights reserved.
 //  Tutorial from - https://github.com/ioscreator/ioscreator/tree/master/IOS8SwiftAddRowsTableViewTutorial
-//
+//  Tutorial from - https://github.com/deege/deegeu-swift-eventkit/tree/master/CalendarTest
 
 import UIKit
 
 class BucketListViewController: UITableViewController {
 
-    let path = NSTemporaryDirectory() + "storage.txt"
+    let path = NSTemporaryDirectory() + "storage2.txt"
     
     var passedIndex:Int = 0
     
@@ -20,7 +20,7 @@ class BucketListViewController: UITableViewController {
     //Necessary?
     var passedTask:Task = Task()
 
-    let arrayValues:NSMutableArray = []
+    var arrayValues:NSMutableArray = []
     var added = false
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -34,7 +34,7 @@ class BucketListViewController: UITableViewController {
                 let currentTask = Task()
                 currentTask.name = String(item[0])
                 currentTask.descrip = String(item[1])
-                currentTask.completed = item[2] as! Bool
+                currentTask.completed = String(item[2])
                 currentTask.startDateTime = String(item[3])
                 currentTask.endDateTime = String(item[4])
                 currentTask.lat = item[5] as! Double
@@ -45,6 +45,14 @@ class BucketListViewController: UITableViewController {
         else{
             print("Couldn't")
         }
+        
+        if(!added){
+            for element in tasks {
+                //                let arrVal = NSMutableArray()
+                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
+            }
+            added = true
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -53,6 +61,7 @@ class BucketListViewController: UITableViewController {
                 if let index = tableView.indexPathForSelectedRow?.row{
                     dest.taskToPass = tasks[index]
                     dest.indexToPass = index
+                    print("index before", String(index))
                 }
             }
         }
@@ -61,16 +70,18 @@ class BucketListViewController: UITableViewController {
     @IBAction func doneEach(segue: UIStoryboardSegue){
         if let src = segue.sourceViewController as? SingleTaskViewController{
             passedTask = src.taskToPass
-            passedIndex = src.indexToPass
-            let taskChanged = tasks[passedIndex].equals(passedTask)
-            if taskChanged{
+            passedIndex = src.indexToPass           
+
+//            let taskChanged = tasks[passedIndex].equals(passedTask)
+            if src.changed {
                 tasks.removeAtIndex(passedIndex)
                 arrayValues.removeObjectAtIndex(passedIndex)
                 addAndWrite(passedTask)
+                src.changed = false
             }
         }
     }
-    
+
     func addAndWrite(task: Task){
         if(!added){
             for element in tasks {
@@ -96,6 +107,31 @@ class BucketListViewController: UITableViewController {
                 print("Didn't pass writing")
             }
         }
+    }
+    
+    @IBAction func doneDel(segue: UIStoryboardSegue){
+        if let src = segue.sourceViewController as? SingleTaskViewController{
+            let curIndex = src.indexToPass
+        
+            tasks.removeAtIndex(curIndex)
+            arrayValues.removeObjectAtIndex(curIndex)
+            self.tableView.reloadData()
+        
+            let text = ""
+            do{
+                try text.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
+            } catch {
+                print("error")
+            }
+        
+            if arrayValues.writeToFile(path, atomically: true){
+                print("writing passed!")
+            }
+            else{
+                print("Didn't pass writing")
+            }
+        }
+        //add write
     }
     
     @IBAction func done(segue:UIStoryboardSegue) {
@@ -125,9 +161,6 @@ class BucketListViewController: UITableViewController {
         // Return the number of rows in the section.
         return tasks.count
     }
-    
-    
-    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("carCell", forIndexPath: indexPath)

@@ -12,26 +12,26 @@ class Task: NSObject {
     
     var name = ""
     var descrip = ""
-    var completed = false
+    var completed = "Not completed yet"
     //   var img = UIImage
     var tags = []
     var startDateTime = ""
     var endDateTime = ""
     var lat = 0.0
     var lon = 0.0
+    var eventId = ""
     var img: UIImage!
     
     func updateName(newName: String){
         name = newName
     }
     
-    func updateCompleted(val: Bool){
+    func updateCompleted(val: String){
         completed = val
     }
     
     func toString() -> String {
-        let s = (completed ? "True" : "False")
-        return "name: " + self.name + " completed: " + s
+        return "name: " + self.name + " completed: " + self.completed
     }
     
     //Equitable. Basically an operator override?
@@ -44,6 +44,7 @@ class Task: NSObject {
         b = b && self.completed == task.completed
         b = b && self.lat == task.lat
         b = b && self.lon == task.lon
+        b = b && self.eventId == task.eventId
         return b
     }
 }

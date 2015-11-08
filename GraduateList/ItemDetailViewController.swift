@@ -94,6 +94,9 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // currently does the same thing as cancel hehe
     }
     
+    
+    
+    // -------- BEGINNING EVENT RELATED -----------------
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
         let event = EKEvent(eventStore: eventStore)
         
@@ -104,6 +107,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         event.calendar = eventStore.defaultCalendarForNewEvents
         do {
             try eventStore.saveEvent(event, span: .ThisEvent)
+            newTask.eventId = event.eventIdentifier
             
             let formatter = NSDateFormatter()
             formatter.dateFormat = "MM-dd-yyyy hh:mm"
@@ -131,6 +135,9 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
         }
     }
+
+    // -------- ENDING EVENT RELATED -----------------
+    
 
     @IBAction func useCamera(sender: UIButton) {
         getGPS()

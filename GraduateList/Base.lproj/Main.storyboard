@@ -15,7 +15,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carCell" id="Ogc-Co-QYA">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ogc-Co-QYA" id="TQZ-Sm-dRt">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -60,7 +60,7 @@
                                     <navigationItem title="Details" id="8ML-PB-4NW">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="E5F-5c-RQ5">
                                             <connections>
-                                                <segue destination="xE3-1V-vRR" kind="unwind" unwindAction="cancel:" id="qzb-rf-0xz"/>
+                                                <segue destination="xE3-1V-vRR" kind="unwind" identifier="canceled" unwindAction="cancel:" id="qzb-rf-0xz"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="gz5-Hw-Jaz">
@@ -117,6 +117,31 @@
                                     <action selector="onPressComplete:" destination="ka6-fG-dJ9" eventType="touchUpInside" id="Qzy-q9-Hul"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gTT-CW-eX8">
+                                <rect key="frame" x="225" y="307" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <segue destination="uMr-iU-Y55" kind="modal" id="ZBe-2N-nTn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pdd-YT-Rii">
+                                <rect key="frame" x="225" y="345" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteAlert:" destination="ka6-fG-dJ9" eventType="touchUpInside" id="9J1-ZO-mBT"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" id="aDh-VI-CmF">
+                                <rect key="frame" x="230" y="383" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <segue destination="xE3-1V-vRR" kind="unwind" identifier="doneDel" unwindAction="doneDel:" id="GHs-at-2yd"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -134,6 +159,41 @@
                 <exit id="xE3-1V-vRR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1331" y="699"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="OTL-X8-Xq0">
+            <objects>
+                <viewController id="uMr-iU-Y55" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WPr-CW-ACZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="RpS-4M-1yd">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Edit" id="ZqG-6S-Rid">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="dqP-Y7-vQT">
+                                            <connections>
+                                                <segue destination="QYB-KU-WQ0" kind="unwind" unwindAction="cancel:" id="cPh-C5-eG0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="xQP-me-hJy">
+                                            <connections>
+                                                <segue destination="QYB-KU-WQ0" kind="unwind" unwindAction="done:" id="eYV-6n-57V"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DFy-fH-2qY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QYB-KU-WQ0" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1867" y="699"/>
         </scene>
         <!--Item Detail View Controller-->
         <scene sceneID="kRQ-3y-5wf">
@@ -206,7 +266,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="504.00000091195096" width="61" height="30"/>
+                                <rect key="frame" x="130" y="504" width="61" height="30.000000911950966"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="Camera?"/>
