@@ -28,6 +28,7 @@ class BucketListViewController: UITableViewController {
     }
     
     func loadValues(){
+        
         let readArray:NSArray? = NSArray(contentsOfFile: path)
         if let array = readArray{
             for item in array{
@@ -53,6 +54,7 @@ class BucketListViewController: UITableViewController {
             }
             added = true
         }
+        prepare()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -62,6 +64,21 @@ class BucketListViewController: UITableViewController {
                     dest.taskToPass = tasks[index]
                     dest.indexToPass = index
                 }
+            }
+        }
+    }
+    
+    func prepare(){
+        print(arrayValues)
+        for val in tasks {
+            if(val.completed == "Completed"){
+                print("WOOHOOOO")
+                print(tasks.indexOf(val))
+                let ind = tasks.indexOf(val)!
+                let curTask = val
+                tasks.removeAtIndex(ind)
+                arrayValues.removeObjectAtIndex(ind)
+                addAndWrite(curTask)
             }
         }
     }
@@ -80,6 +97,7 @@ class BucketListViewController: UITableViewController {
             }
         }
         print("after",passedTask.name)
+        prepare()
     }
 
     func addAndWrite(task: Task){
@@ -131,6 +149,8 @@ class BucketListViewController: UITableViewController {
                 print("Didn't pass writing")
             }
         }
+        
+        prepare()
         //add write
     }
     
@@ -140,6 +160,7 @@ class BucketListViewController: UITableViewController {
             newTask = detailVC.newTask
             addAndWrite(newTask)
         }
+        prepare()
     }
     
     override func viewDidLoad() {
@@ -167,6 +188,13 @@ class BucketListViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("carCell", forIndexPath: indexPath)
         // Configure the cell...
+        print(tasks[indexPath.row].completed)
+        if(tasks[indexPath.row].completed == "Completed"){
+            cell.textLabel!.textColor = UIColor.grayColor()
+        }
+        else{
+            cell.textLabel!.textColor = UIColor.blackColor()
+        }
         cell.textLabel!.text = tasks[indexPath.row].name
         
         return cell
