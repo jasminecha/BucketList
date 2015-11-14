@@ -14,6 +14,7 @@ class SingleTaskViewController: UIViewController {
     @IBOutlet weak var taskTitle: UILabel!
     @IBOutlet weak var descrip: UILabel!
     @IBOutlet weak var dateTime: UILabel!
+    @IBOutlet weak var other: UITextField!
     @IBOutlet weak var completed: UILabel!
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var location: UILabel!
@@ -130,6 +131,7 @@ class SingleTaskViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        other.enabled = false
         taskTitle.font = UIFont(name: (taskTitle.font?.fontName)!, size: 20)
         taskTitle.text = taskToPass.name
         descrip.text = taskToPass.descrip
@@ -138,11 +140,20 @@ class SingleTaskViewController: UIViewController {
         
         let path = taskToPass.img
         print(path, "this is path")
-        if (path != ""){
-            let imageis: UIImage = UIImage(contentsOfFile: path)!
-            photoImage.image = imageis
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        if(fileManager.fileExistsAtPath(path) && path != ""){
+            if (path != ""){
+                let imageis: UIImage = UIImage(contentsOfFile: path)!
+                photoImage.image = imageis
+            }
         }
-
+        else{
+            print("nah")
+        }
+        
+        
         location.text = NSString(format: "Lat: %.2f" + " Lon: %.2f" , taskToPass.lat, taskToPass.lon) as String
     }
 
