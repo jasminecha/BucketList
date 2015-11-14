@@ -135,8 +135,14 @@ class SingleTaskViewController: UIViewController {
         descrip.text = taskToPass.descrip
         completed.text = taskToPass.completed
         dateTime.text = taskToPass.startDateTime
-        photoImage.image = taskToPass.img
         
+        let path = taskToPass.img
+        print(path, "this is path")
+        if (path != ""){
+            let imageis: UIImage = UIImage(contentsOfFile: path)!
+            photoImage.image = imageis
+        }
+
         location.text = NSString(format: "Lat: %.2f" + " Lon: %.2f" , taskToPass.lat, taskToPass.lon) as String
     }
 

@@ -20,7 +20,7 @@ class Task: NSObject {
     var lat = 0.0
     var lon = 0.0
     var eventId = ""
-    var img: UIImage!
+    var img = ""
     var changed = false
     
     func updateName(newName: String){

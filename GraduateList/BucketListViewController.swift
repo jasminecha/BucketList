@@ -11,7 +11,7 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
-    let path = NSTemporaryDirectory() + "storage2.txt"
+    let path = NSTemporaryDirectory() + "saved.txt"
     
     var passedIndex:Int = 0
     
@@ -19,6 +19,7 @@ class BucketListViewController: UITableViewController {
     var newTask = Task()
     //Necessary?
     var passedTask:Task = Task()
+    var currentTaskNumber = 0
 
     var arrayValues:NSMutableArray = []
     var added = false
@@ -40,6 +41,7 @@ class BucketListViewController: UITableViewController {
                 currentTask.endDateTime = String(item[4])
                 currentTask.lat = item[5] as! Double
                 currentTask.lon = item[6] as! Double
+                currentTask.img = String(item[7])
                 tasks.append(currentTask)
             }
         }
@@ -50,7 +52,7 @@ class BucketListViewController: UITableViewController {
         if(!added){
             for element in tasks {
                 //                let arrVal = NSMutableArray()
-                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
+                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon, element.img])
             }
             added = true
         }
@@ -63,17 +65,20 @@ class BucketListViewController: UITableViewController {
                 if let index = tableView.indexPathForSelectedRow?.row{
                     dest.taskToPass = tasks[index]
                     dest.indexToPass = index
+                    
                 }
+            }
+        }
+        if segue.identifier == "addingNew" {
+            if let dest = segue.destinationViewController as? ItemDetailViewController{
+                dest.count = currentTaskNumber
             }
         }
     }
     
     func prepare(){
-        print(arrayValues)
         for val in tasks {
             if(val.completed == "Completed"){
-                print("WOOHOOOO")
-                print(tasks.indexOf(val))
                 let ind = tasks.indexOf(val)!
                 let curTask = val
                 tasks.removeAtIndex(ind)
@@ -86,7 +91,8 @@ class BucketListViewController: UITableViewController {
     @IBAction func doneEach(segue: UIStoryboardSegue){
         if let src = segue.sourceViewController as? SingleTaskViewController{
             passedTask = src.taskToPass
-            passedIndex = src.indexToPass           
+            passedIndex = src.indexToPass
+            print("this is imgggg", passedTask.img)
 
 //            let taskChanged = tasks[passedIndex].equals(passedTask)
             if src.taskToPass.changed {
@@ -96,7 +102,6 @@ class BucketListViewController: UITableViewController {
                 src.taskToPass.changed = false
             }
         }
-        print("after",passedTask.name)
         prepare()
     }
 
@@ -104,7 +109,7 @@ class BucketListViewController: UITableViewController {
         if(!added){
             for element in tasks {
                 //                let arrVal = NSMutableArray()
-                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon])
+                arrayValues.addObject([element.name, element.descrip, element.completed, element.startDateTime, element.endDateTime, element.lat, element.lon, element.img])
             }
             added = true
         }
@@ -113,10 +118,7 @@ class BucketListViewController: UITableViewController {
             tasks.append(task)
             self.tableView.reloadData()
             
-            arrayValues.addObject([task.name, task.descrip, task.completed, task.startDateTime, task.endDateTime, task.lat, task.lon]) // check why img is nil
-            
-            print("This is the destPath")
-            print(path)
+            arrayValues.addObject([task.name, task.descrip, task.completed, task.startDateTime, task.endDateTime, task.lat, task.lon, task.img])
             
             if arrayValues.writeToFile(path, atomically: true){
                 print("writing passed!")
@@ -157,7 +159,8 @@ class BucketListViewController: UITableViewController {
     @IBAction func done(segue:UIStoryboardSegue) {
         if segue.sourceViewController is ItemDetailViewController{
             let detailVC = segue.sourceViewController as! ItemDetailViewController
-            newTask = detailVC.newTask
+            newTask = detailVC.newTask            
+            currentTaskNumber += 1
             addAndWrite(newTask)
         }
         prepare()
@@ -188,7 +191,6 @@ class BucketListViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("carCell", forIndexPath: indexPath)
         // Configure the cell...
-        print(tasks[indexPath.row].completed)
         if(tasks[indexPath.row].completed == "Completed"){
             cell.textLabel!.textColor = UIColor.grayColor()
         }

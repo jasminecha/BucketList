@@ -11,6 +11,8 @@ import CoreLocation
 import EventKitUI
 import MobileCoreServices
 
+
+
 class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var taskName: UITextField!
@@ -20,6 +22,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     var newMedia: Bool?
     var newTask = Task()
+    var count: Int?
     var locationManager: CLLocationManager?
     
     
@@ -211,28 +214,41 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    func imagePickerController(didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        let mediaType = info[UIImagePickerControllerMediaType] as! String
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-        let strKit = kUTTypeImage as String
-        
-        if mediaType == strKit {
-            let image = info[UIImagePickerControllerOriginalImage]
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+
+        let image = info[UIImagePickerControllerOriginalImage]
                 as! UIImage
+        
+        let fileManager = NSFileManager.defaultManager()
             
-            if (newMedia == true) {
-                UIImageWriteToSavedPhotosAlbum(image, self,
-                    "image:didFinishSavingWithError:contextInfo:", nil)
-                newTask.img = image
-            } else if mediaType == strKit {
-                // Code to support video here
-            }
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        
+        let filePathToWrite = "\(paths)/User_Profile_Image.jpg" + String(count)
+        newTask.img = filePathToWrite
+        print(newTask.img)
+        
+        // let imageData: NSData = UIImagePNGRepresentation(selectedImage)!
+        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
             
+        fileManager.createFileAtPath(filePathToWrite, contents: jpgImageData, attributes: nil)
+            
+        // Check file saved successfully
+        let getImagePath = (paths as NSString).stringByAppendingPathComponent("User_Profile_Image.jpg")
+        if(fileManager.fileExistsAtPath(getImagePath)){
+            print("WOHOO")
         }
+        else{
+            print("nah")
+        }
+
+        if (newMedia == true) {
+            UIImageWriteToSavedPhotosAlbum(image, self,
+                "image:didFinishSavingWithError:contextInfo:", nil)
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
     
     func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
         
