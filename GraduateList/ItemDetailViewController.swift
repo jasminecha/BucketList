@@ -65,10 +65,10 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 alertDidntWork("Insufficient Data", message: "No Descripton Given")
                 return false
             }
-            else if newTask.img == ""{
-                alertDidntWork("Insufficient Data", message: "No Image Taken")
-                return false
-            }
+//            else if newTask.img == ""{
+//                alertDidntWork("Insufficient Data", message: "No Image Taken")
+//                return false
+//            }
             
             if((taskName.text != "")){
                 addEvent()
