@@ -23,7 +23,6 @@ class SingleTaskViewController: UIViewController {
     //To pass back to BucketListViewController, see "prepareForSegue
     var taskToPass = Task()
     var indexToPass = 0
-    var changed = false
     
     @IBAction func onPressComplete(sender: UIButton) {
         alertComplete("Complete", message: "Mark as complete?")
@@ -34,7 +33,6 @@ class SingleTaskViewController: UIViewController {
             if let src = segue.sourceViewController as? EditListViewController{
                 taskToPass.name = src.taskToPass.name
                 taskToPass.descrip = src.taskToPass.descrip
-                changed = true
             }
         }
         print("printing", taskToPass.name)
@@ -55,7 +53,7 @@ class SingleTaskViewController: UIViewController {
         refreshAlert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
             self.taskToPass.updateCompleted("Completed")
             self.completed.text = self.taskToPass.completed
-            self.changed = true
+            self.taskToPass.changed = true
             self.performSegueWithIdentifier("doneEach", sender: nil)
         }))
         presentViewController(refreshAlert, animated: true, completion: nil)
@@ -132,7 +130,7 @@ class SingleTaskViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        taskTitle.font = UIFont(name: (taskTitle.font?.fontName)!, size: 30)
+        taskTitle.font = UIFont(name: (taskTitle.font?.fontName)!, size: 20)
         taskTitle.text = taskToPass.name
         descrip.text = taskToPass.descrip
         completed.text = taskToPass.completed

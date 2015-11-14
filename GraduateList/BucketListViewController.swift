@@ -72,11 +72,11 @@ class BucketListViewController: UITableViewController {
             passedIndex = src.indexToPass           
 
 //            let taskChanged = tasks[passedIndex].equals(passedTask)
-            if src.changed {
+            if src.taskToPass.changed {
                 tasks.removeAtIndex(passedIndex)
                 arrayValues.removeObjectAtIndex(passedIndex)
                 addAndWrite(passedTask)
-                src.changed = false
+                src.taskToPass.changed = false
             }
         }
         print("after",passedTask.name)

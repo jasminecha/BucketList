@@ -21,6 +21,7 @@ class Task: NSObject {
     var lon = 0.0
     var eventId = ""
     var img: UIImage!
+    var changed = false
     
     func updateName(newName: String){
         name = newName
