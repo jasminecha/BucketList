@@ -44,14 +44,40 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "doneSegue" {
+    func alertDidntWork(title: String, message: String){
+        
+        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Handle insufficient data")
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "doneSegue" {
+            if(taskName.text == ""){
+                alertDidntWork("Insufficient Data", message: "No Task Name Given")
+                return false
+            }
+            else if taskDescrip.text == ""{
+                alertDidntWork("Insufficient Data", message: "No Descripton Given")
+                return false
+            }
+            else if newTask.img == ""{
+                alertDidntWork("Insufficient Data", message: "No Image Taken")
+                return false
+            }
+            
             if((taskName.text != "")){
                 addEvent()
                 newTask.name = taskName.text!
                 newTask.descrip = taskDescrip.text!
+                return true
             }
         }
+        return true
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

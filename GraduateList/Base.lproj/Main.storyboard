@@ -290,7 +290,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Qi-Lq-Qp6">
-                                <rect key="frame" x="130" y="504" width="61" height="30.000000852559289"/>
+                                <rect key="frame" x="130" y="504" width="61" height="30.000000852559296"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="Camera?"/>
