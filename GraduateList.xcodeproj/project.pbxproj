@@ -161,7 +161,7 @@
 				TargetAttributes = {
 					7E529E8A1BDD2183001961A4 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = FJJ53TGCR3;
+						DevelopmentTeam = FYCA8RDETK;
 					};
 					7E529E9E1BDD2184001961A4 = {
 						CreatedOnToolsVersion = 7.1;
@@ -354,7 +354,7 @@
 				INFOPLIST_FILE = GraduateList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList";
+				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -369,7 +369,7 @@
 				INFOPLIST_FILE = GraduateList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList";
+				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

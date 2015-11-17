@@ -56,12 +56,15 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        var name = taskName.text
+        name = name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        var desc = taskDescrip.text
+        desc = desc!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         if identifier == "doneSegue" {
-            if(taskName.text == ""){
+            if(name == ""){
                 alertDidntWork("Insufficient Data", message: "No Task Name Given")
                 return false
-            }
-            else if taskDescrip.text == ""{
+            } else if desc == ""{
                 alertDidntWork("Insufficient Data", message: "No Descripton Given")
                 return false
             }
