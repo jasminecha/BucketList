@@ -18,6 +18,7 @@ class Task: NSObject {
     var startDateTime = ""
     var endDateTime = ""
     var lat = 0.0
+    var user = ""
     var lon = 0.0
     var eventId = ""
     var img = ""

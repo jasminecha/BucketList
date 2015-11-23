@@ -38,6 +38,7 @@ class EditListViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "cancelEdit"){
             taskToPass.name = oldTask

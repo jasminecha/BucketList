@@ -18,6 +18,7 @@
 		7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E529EB01BDD226F001961A4 /* BucketListViewController.swift */; };
 		7E7BE5371BE6A19F00D4ECF4 /* SingleTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7BE5361BE6A19F00D4ECF4 /* SingleTaskViewController.swift */; };
 		E3925F781BE51B7100C293B8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3925F771BE51B7100C293B8 /* Task.swift */; };
+		E3CD6BB81C02C19100EB9131 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CD6BB71C02C19100EB9131 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		7E529EB01BDD226F001961A4 /* BucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		7E7BE5361BE6A19F00D4ECF4 /* SingleTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleTaskViewController.swift; path = ../SingleTaskViewController.swift; sourceTree = "<group>"; };
 		E3925F771BE51B7100C293B8 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E3CD6BB71C02C19100EB9131 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				7E529E8E1BDD2183001961A4 /* AppDelegate.swift */,
 				7E2897EA1BEFE21500F643D9 /* EditListViewController.swift */,
 				7E7BE5361BE6A19F00D4ECF4 /* SingleTaskViewController.swift */,
+				E3CD6BB71C02C19100EB9131 /* LoginViewController.swift */,
 				7E529EB01BDD226F001961A4 /* BucketListViewController.swift */,
 				7E529EAE1BDD21FB001961A4 /* ItemDetailViewController.swift */,
 				7E529E901BDD2183001961A4 /* ViewController.swift */,
@@ -161,7 +164,7 @@
 				TargetAttributes = {
 					7E529E8A1BDD2183001961A4 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = FYCA8RDETK;
+						DevelopmentTeam = FJJ53TGCR3;
 					};
 					7E529E9E1BDD2184001961A4 = {
 						CreatedOnToolsVersion = 7.1;
@@ -218,6 +221,7 @@
 				7E7BE5371BE6A19F00D4ECF4 /* SingleTaskViewController.swift in Sources */,
 				7E529E8F1BDD2183001961A4 /* AppDelegate.swift in Sources */,
 				E3925F781BE51B7100C293B8 /* Task.swift in Sources */,
+				E3CD6BB81C02C19100EB9131 /* LoginViewController.swift in Sources */,
 				7E529EB11BDD226F001961A4 /* BucketListViewController.swift in Sources */,
 				7E2897EB1BEFE21500F643D9 /* EditListViewController.swift in Sources */,
 				7E529EAF1BDD21FB001961A4 /* ItemDetailViewController.swift in Sources */,
@@ -354,7 +358,7 @@
 				INFOPLIST_FILE = GraduateList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList2";
+				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList6";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -369,7 +373,7 @@
 				INFOPLIST_FILE = GraduateList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList2";
+				PRODUCT_BUNDLE_IDENTIFIER = "cs4720-jbc4gy.GraduateList6";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

@@ -24,6 +24,7 @@ class SingleTaskViewController: UIViewController {
     //To pass back to BucketListViewController, see "prepareForSegue
     var taskToPass = Task()
     var indexToPass = 0
+    var currUser = ""
     
     @IBAction func onPressComplete(sender: UIButton) {
         alertComplete("Complete", message: "Mark as complete?")
@@ -55,12 +56,51 @@ class SingleTaskViewController: UIViewController {
             self.taskToPass.updateCompleted("Completed")
             self.completed.text = self.taskToPass.completed
             self.taskToPass.changed = true
+            self.sendCompleted()
             self.performSegueWithIdentifier("doneEach", sender: nil)
         }))
         presentViewController(refreshAlert, animated: true, completion: nil)
     }
+    
+    func sendCompleted(){
+           let request = NSMutableURLRequest(URL: NSURL(string: "http://pacific-inlet-7989.herokuapp.com/completed")!)
+            let session = NSURLSession.sharedSession()
+            request.HTTPMethod = "POST"
+            
+            let params = ["name": currUser, "task": taskToPass.name] as Dictionary<String, String>
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                print("Response: \(response)")
+                let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("Body: \(strData)")
+//                let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
+//                
+//                // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
+//
+//                // The JSONObjectWithData constructor didn't return an error. But, we should still
+//                // check and make sure that json has a value using optional binding.
+//                if let parseJSON = json {
+//                   // Okay, the parsedJSON is here, let's get the value for 'success' out of it
+//                   let success = parseJSON["success"] as? Int
+//                   print("Success: \(success)")
+//                }
+//                else {
+//                   // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
+//                   let jsonStr = NSString(data: data!, encoding: NSUTF8StringEncoding)
+//                   print("Error could not parse JSON: \(jsonStr)")
+//                }
+            })
+            task.resume()
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(taskToPass.user, "is user!!!")
         // Do any additional setup after loading the view.
     }
     
@@ -139,7 +179,6 @@ class SingleTaskViewController: UIViewController {
         dateTime.text = taskToPass.startDateTime
         
         let path = taskToPass.img
-        print(path, "this is path")
         
         let fileManager = NSFileManager.defaultManager()
         
@@ -149,10 +188,6 @@ class SingleTaskViewController: UIViewController {
                 photoImage.image = imageis
             }
         }
-        else{
-            print("nah")
-        }
-        
         
         location.text = NSString(format: "Lat: %.2f" + " Lon: %.2f" , taskToPass.lat, taskToPass.lon) as String
     }

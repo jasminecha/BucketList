@@ -23,6 +23,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     var newMedia: Bool?
     var newTask = Task()
     var count: Int?
+    var user = ""
     var locationManager: CLLocationManager?
     
     
@@ -77,10 +78,34 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 addEvent()
                 newTask.name = taskName.text!
                 newTask.descrip = taskDescrip.text!
+                newTask.user = user
+                
+                sendAddTask(newTask.name)
+                
                 return true
             }
         }
         return true
+    }
+    
+    
+    func sendAddTask(val: String){
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://pacific-inlet-7989.herokuapp.com/addtask")!)
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        let params = ["task": val, "name": user] as Dictionary<String, String>
+        
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        //
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            print("Response: \(response)")
+            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("Body: \(strData)")
+        })
+        task.resume()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
