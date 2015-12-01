@@ -259,9 +259,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         if(fileManager.fileExistsAtPath(getImagePath)){
             print("WOHOO")
         }
-        else{
-            print("nah")
-        }
         
         if (newMedia == true) {
             UIImageWriteToSavedPhotosAlbum(image, self,
@@ -271,7 +268,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
         
     func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
-        
         if error != nil {
             let alert = UIAlertController(title: "Save Failed",
                 message: "Failed to save image",

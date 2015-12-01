@@ -241,7 +241,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bAQ-2z-xiC">
                                 <rect key="frame" x="84" y="378" width="153" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Upload/Change Image"/>
                                 <connections>
                                     <action selector="changeImg:" destination="uMr-iU-Y55" eventType="touchUpInside" id="bwA-hW-r6O"/>

@@ -22,6 +22,7 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
     var taskToPass = Task()
     var indexToPass = 0
     var oldTask = ""
+    var wentAndChanged = false
     var oldDescrip = ""
     var temp = ""
 
@@ -60,9 +61,13 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
             taskToPass.descrip = oldDescrip
             taskToPass.changed = false
         }
-        else if(segue.identifier == "doneEdit" && taskToPass.name != oldTask || taskToPass.descrip != oldDescrip || taskToPass.img != temp){
-            taskToPass.changed = true
-            taskToPass.img = temp
+        else if(segue.identifier == "doneEdit"){
+            if(taskToPass.name != oldTask || taskToPass.descrip != oldDescrip){
+                taskToPass.changed = true
+            }
+            if(wentAndChanged){
+                taskToPass.img = temp
+            }
         }
     }
     
@@ -117,6 +122,8 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
         let filePathToWrite = temp
         
+        wentAndChanged = true
+        
         // let imageData: NSData = UIImagePNGRepresentation(selectedImage)!
         let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
         
@@ -125,7 +132,7 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
         // Check file saved successfully
         let getImagePath = (paths as NSString).stringByAppendingPathComponent("User_Profile_Image.jpg")
         if(fileManager.fileExistsAtPath(getImagePath)){
-            print("WOHOO")
+            print("woohoo")
         }
         else{
             print("nah")
