@@ -35,6 +35,9 @@ class SingleTaskViewController: UIViewController {
             if let src = segue.sourceViewController as? EditListViewController{
                 taskToPass.name = src.taskToPass.name
                 taskToPass.descrip = src.taskToPass.descrip
+                taskToPass.img = src.taskToPass.img
+                
+                print("this is img", taskToPass.img)
             }
         }
         print("printing", taskToPass.name)
