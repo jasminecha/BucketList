@@ -24,6 +24,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     var newTask = Task()
     var count: Int?
     var user = ""
+    var dateCheck = false
     var locationManager: CLLocationManager?
     
     
@@ -47,13 +48,13 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func alertDidntWork(title: String, message: String){
         
-        let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction!) in
-            print("Handle insufficient data")
+        alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Data")
         }))
         
-        presentViewController(refreshAlert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
@@ -76,11 +77,17 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             
             if((taskName.text != "")){
                 addEvent()
+                
+                if !dateCheck{
+                    alertDidntWork("End Date is before Start Date", message: "")
+                    return false
+                }
+                
                 newTask.name = taskName.text!
                 newTask.descrip = taskDescrip.text!
                 newTask.user = user
                 
-                sendAddTask(newTask.name)
+                //sendAddTask(newTask.name)
                 
                 return true
             }
@@ -154,27 +161,31 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     // -------- BEGINNING EVENT RELATED -----------------
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
-        let event = EKEvent(eventStore: eventStore)
         
-        event.title = title
-        event.startDate = startDate
-        event.endDate = endDate
+        if(dateCheck){
         
-        event.calendar = eventStore.defaultCalendarForNewEvents
-        do {
-            try eventStore.saveEvent(event, span: .ThisEvent)
-            newTask.eventId = event.eventIdentifier
+            let event = EKEvent(eventStore: eventStore)
             
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "MM-dd-yyyy hh:mm"
-            let stringDate: String = formatter.stringFromDate(event.startDate)
-            let endStringDate: String = formatter.stringFromDate(event.endDate)
+            event.title = title
+            event.startDate = startDate
+            event.endDate = endDate
+        
+            event.calendar = eventStore.defaultCalendarForNewEvents
+            do {
+                try eventStore.saveEvent(event, span: .ThisEvent)
+                newTask.eventId = event.eventIdentifier
+
+                let formatter = NSDateFormatter()
+                formatter.dateFormat = "MM-dd-yyyy hh:mm"
+                let stringDate: String = formatter.stringFromDate(event.startDate)
+                let endStringDate: String = formatter.stringFromDate(event.endDate)
             
-            newTask.startDateTime = stringDate
-            newTask.endDateTime = endStringDate
-            
-        } catch {
-            print("Bad things happened")
+                newTask.startDateTime = stringDate
+                newTask.endDateTime = endStringDate
+
+            } catch {
+                print("Bad things happened")
+            }
         }
     }
     
@@ -182,10 +193,17 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         
         let eventStore = EKEventStore()
         
+        if self.endDate.date.compare(self.startDate.date) == NSComparisonResult.OrderedDescending || self.endDate.date.compare(self.startDate.date) != NSComparisonResult.OrderedAscending {
+            self.dateCheck = true
+        }
+
+        
         if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
             eventStore.requestAccessToEntityType(.Event, completion: {
                 granted, error in
+
                 self.createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
+                
             })
         } else {
             createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
