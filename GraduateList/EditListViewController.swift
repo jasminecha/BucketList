@@ -5,22 +5,27 @@
 //  Created by Jasmine Cha on 11/8/15.
 //  Copyright © 2015 Jasmine Cha. All rights reserved.
 //
+// MARK: Storyboard Items
+// MARK: Fields
+// MARK: Items Needed for Setup
 
 import UIKit
 import MobileCoreServices
 
 class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: Storyboard Items
+    @IBOutlet weak var taskName: UITextField!
+    @IBOutlet weak var taskDescri: UITextField!
+    
+    // MARK: Fields
     var taskToPass = Task()
     var indexToPass = 0
     var oldTask = ""
     var oldDescrip = ""
-    
     var temp = ""
-    
-    @IBOutlet weak var taskName: UITextField!
-    @IBOutlet weak var taskDescri: UITextField!
-    
+
+    // MARK: Items Needed for Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         taskName.delegate = self
@@ -43,7 +48,12 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
         }
     }
     
+    func textFieldShouldReturn(userText: UITextField) -> Bool {
+        userText.resignFirstResponder()
+        return true
+    }
     
+    // MARK: Segue Info
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "cancelEdit"){
             taskToPass.name = oldTask
@@ -56,6 +66,7 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
         }
     }
     
+    // MARK: Edited?
     func textFieldDidChange(textField: UITextField){
         if(textField == taskName){
             taskToPass.name = taskName.text!
@@ -68,11 +79,16 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
         }
     }
     
-    func textFieldShouldReturn(userText: UITextField) -> Bool {
-        userText.resignFirstResponder()
-        return true
+    // MARK: Alert
+    func displayAlertWithTitle(title: String, message: String){
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        
+        presentViewController(controller, animated: true, completion: nil)
     }
     
+    // MARK: Images and Camera
     @IBAction func changeImg(sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.Camera) {
@@ -89,17 +105,7 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
                     completion: nil)
         }
     }
-    
-    func displayAlertWithTitle(title: String, message: String){
-        let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        
-        controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        
-        presentViewController(controller, animated: true, completion: nil)
-        
-    }
-    
-    
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         let image = info[UIImagePickerControllerOriginalImage]
@@ -143,9 +149,4 @@ class EditListViewController: UIViewController, UITextFieldDelegate, UIImagePick
                 completion: nil)
         }
     }
-
-    
-    
-    
-    
 }

@@ -11,15 +11,15 @@ import CoreLocation
 import EventKitUI
 import MobileCoreServices
 
-
-
 class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
+    // MARK: Storyboard Items
     @IBOutlet weak var taskName: UITextField!
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var taskDescrip: UITextField!
     
+    // MARK: Fields
     var newMedia: Bool?
     var newTask = Task()
     var count: Int?
@@ -27,7 +27,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     var dateCheck = false
     var locationManager: CLLocationManager?
     
-    
+    // MARK: Items Needed for Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         taskName.delegate = self
@@ -46,6 +46,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Alerts
     func alertDidntWork(title: String, message: String){
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -57,6 +58,16 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    func displayAlertWithTitle(title: String, message: String){
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        
+        presentViewController(controller, animated: true, completion: nil)
+        
+    }
+    
+    // MARK: Segue Info
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         var name = taskName.text
         name = name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
@@ -70,10 +81,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 alertDidntWork("Insufficient Data", message: "No Descripton Given")
                 return false
             }
-//            else if newTask.img == ""{
-//                alertDidntWork("Insufficient Data", message: "No Image Taken")
-//                return false
-//            }
             
             if((taskName.text != "")){
                 addEvent()
@@ -95,7 +102,11 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         return true
     }
     
+    @IBAction func doneCapture(segue:UIStoryboardSegue) {
+        
+    }
     
+    // MARK: Web Services
     func sendAddTask(val: String){
         let request = NSMutableURLRequest(URL: NSURL(string: "http://pacific-inlet-7989.herokuapp.com/addtask")!)
         let session = NSURLSession.sharedSession()
@@ -115,7 +126,8 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         task.resume()
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    // MARK: Location
+        func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.count == 0{
             //handle error here
             return
@@ -152,14 +164,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             }
     }
     
-    
-    @IBAction func doneCapture(segue:UIStoryboardSegue) {
-        // currently does the same thing as cancel hehe
-    }
-    
-    
-    
-    // -------- BEGINNING EVENT RELATED -----------------
+    // MARK: Event Things
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
         
         if(dateCheck){
@@ -209,10 +214,8 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             createEvent(eventStore, title: (self.taskName?.text)!, startDate: self.startDate.date, endDate: self.endDate.date)
         }
     }
-
-    // -------- ENDING EVENT RELATED -----------------
     
-
+    // MARK: Images and Camera
     @IBAction func useCamera(sender: UIButton) {
         getGPS()
 
@@ -233,7 +236,58 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let image = info[UIImagePickerControllerOriginalImage]
+            as! UIImage
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        
+        let filePathToWrite = "\(paths)/User_Profile_Image.jpg" + String(count)
+        newTask.img = filePathToWrite
+        print(newTask.img)
+        
+        // let imageData: NSData = UIImagePNGRepresentation(selectedImage)!
+        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
+        
+        fileManager.createFileAtPath(filePathToWrite, contents: jpgImageData, attributes: nil)
+        
+        // Check file saved successfully
+        let getImagePath = (paths as NSString).stringByAppendingPathComponent("User_Profile_Image.jpg")
+        if(fileManager.fileExistsAtPath(getImagePath)){
+            print("WOHOO")
+        }
+        else{
+            print("nah")
+        }
+        
+        if (newMedia == true) {
+            UIImageWriteToSavedPhotosAlbum(image, self,
+                "image:didFinishSavingWithError:contextInfo:", nil)
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+        
+    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
+        
+        if error != nil {
+            let alert = UIAlertController(title: "Save Failed",
+                message: "Failed to save image",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "OK",
+                style: .Cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true,
+                completion: nil)
+        }
+    }
+
     
+    //MARK: Location
     func createLocationManager(startImmediately startImmediately: Bool){
         locationManager = CLLocationManager()
         if let manager = locationManager{
@@ -244,16 +298,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             }
         }
     }
-    
-    func displayAlertWithTitle(title: String, message: String){
-        let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        
-        controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        
-        presentViewController(controller, animated: true, completion: nil)
-        
-    }
-    
     
     func getGPS(){
         if CLLocationManager.locationServicesEnabled(){
@@ -283,58 +327,6 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 displayAlertWithTitle("Restricted",
                     message: "Location services are not allowed for this app")
             }
-        }
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-
-        let image = info[UIImagePickerControllerOriginalImage]
-                as! UIImage
-        
-        let fileManager = NSFileManager.defaultManager()
-            
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        
-        let filePathToWrite = "\(paths)/User_Profile_Image.jpg" + String(count)
-        newTask.img = filePathToWrite
-        print(newTask.img)
-        
-        // let imageData: NSData = UIImagePNGRepresentation(selectedImage)!
-        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
-            
-        fileManager.createFileAtPath(filePathToWrite, contents: jpgImageData, attributes: nil)
-            
-        // Check file saved successfully
-        let getImagePath = (paths as NSString).stringByAppendingPathComponent("User_Profile_Image.jpg")
-        if(fileManager.fileExistsAtPath(getImagePath)){
-            print("WOHOO")
-        }
-        else{
-            print("nah")
-        }
-
-        if (newMedia == true) {
-            UIImageWriteToSavedPhotosAlbum(image, self,
-                "image:didFinishSavingWithError:contextInfo:", nil)
-        }
-        picker.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafePointer<Void>) {
-        
-        if error != nil {
-            let alert = UIAlertController(title: "Save Failed",
-                message: "Failed to save image",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            
-            let cancelAction = UIAlertAction(title: "OK",
-                style: .Cancel, handler: nil)
-            
-            alert.addAction(cancelAction)
-            self.presentViewController(alert, animated: true,
-                completion: nil)
         }
     }
 }

@@ -11,14 +11,14 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
+    // MARK: Stored Paths
     let path = NSTemporaryDirectory() + "saved3.txt"
     let userPath = NSTemporaryDirectory() + "login2.txt"
     
+    // MARK: Fields
     var passedIndex:Int = 0
-    
     var tasks = [Task]()
     var newTask = Task()
-    //Necessary?
     var passedTask:Task = Task()
     var user = ""
     var currentTaskNumber = 0
@@ -27,10 +27,20 @@ class BucketListViewController: UITableViewController {
     var userValues:NSMutableArray = []
     var added = false
     
-    @IBAction func cancel(segue:UIStoryboardSegue) {
-
+    // MARK: Items Needed for Setup
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadValues()
+        self.tableView.reloadData()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Loading Values
     func loadValues(){
         
         let readArray:NSArray? = NSArray(contentsOfFile: path)
@@ -63,6 +73,7 @@ class BucketListViewController: UITableViewController {
         prepare()
     }
     
+    // MARK: Segue Info
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toEachSegue" {
             if let dest = segue.destinationViewController as? SingleTaskViewController{
@@ -81,6 +92,64 @@ class BucketListViewController: UITableViewController {
         }
     }
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func doneEach(segue: UIStoryboardSegue){
+        if let src = segue.sourceViewController as? SingleTaskViewController{
+            passedTask = src.taskToPass
+            passedIndex = src.indexToPass
+            
+            //            let taskChanged = tasks[passedIndex].equals(passedTask)
+            if src.taskToPass.changed {
+                tasks.removeAtIndex(passedIndex)
+                arrayValues.removeObjectAtIndex(passedIndex)
+                addAndWrite(passedTask)
+                src.taskToPass.changed = false
+            }
+        }
+        prepare()
+    }
+
+    @IBAction func doneDel(segue: UIStoryboardSegue){
+        if let src = segue.sourceViewController as? SingleTaskViewController{
+            let curIndex = src.indexToPass
+            
+            tasks.removeAtIndex(curIndex)
+            arrayValues.removeObjectAtIndex(curIndex)
+            self.tableView.reloadData()
+            
+            let text = ""
+            do{
+                try text.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
+            } catch {
+                print("error")
+            }
+            
+            if arrayValues.writeToFile(path, atomically: true){
+                print("writing passed!")
+            }
+            else{
+                print("Didn't pass writing")
+            }
+        }
+        
+        prepare()
+        //add write
+    }
+    
+    @IBAction func done(segue:UIStoryboardSegue) {
+        if segue.sourceViewController is ItemDetailViewController{
+            let detailVC = segue.sourceViewController as! ItemDetailViewController
+            newTask = detailVC.newTask
+            currentTaskNumber += 1
+            addAndWrite(newTask)
+        }
+        prepare()
+    }
+    
+    // MARK: Helper function
     func prepare(){
         for val in tasks {
             if(val.completed == "Completed"){
@@ -93,6 +162,7 @@ class BucketListViewController: UITableViewController {
         }
     }
     
+    // MARK: Adding User
     func addUser(){
         userValues.removeAllObjects()
         userValues.addObject(user)
@@ -109,22 +179,6 @@ class BucketListViewController: UITableViewController {
         }
     }
     
-    @IBAction func doneEach(segue: UIStoryboardSegue){
-        if let src = segue.sourceViewController as? SingleTaskViewController{
-            passedTask = src.taskToPass
-            passedIndex = src.indexToPass
-
-//            let taskChanged = tasks[passedIndex].equals(passedTask)
-            if src.taskToPass.changed {
-                tasks.removeAtIndex(passedIndex)
-                arrayValues.removeObjectAtIndex(passedIndex)
-                addAndWrite(passedTask)
-                src.taskToPass.changed = false
-            }
-        }
-        prepare()
-    }
-
     func addAndWrite(task: Task){
         if(!added){
             for element in tasks {
@@ -148,57 +202,8 @@ class BucketListViewController: UITableViewController {
             }
         }
     }
-    
-    @IBAction func doneDel(segue: UIStoryboardSegue){
-        if let src = segue.sourceViewController as? SingleTaskViewController{
-            let curIndex = src.indexToPass
-        
-            tasks.removeAtIndex(curIndex)
-            arrayValues.removeObjectAtIndex(curIndex)
-            self.tableView.reloadData()
-        
-            let text = ""
-            do{
-                try text.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
-            } catch {
-                print("error")
-            }
-        
-            if arrayValues.writeToFile(path, atomically: true){
-                print("writing passed!")
-            }
-            else{
-                print("Didn't pass writing")
-            }
-        }
-        
-        prepare()
-        //add write
-    }
-    
-    @IBAction func done(segue:UIStoryboardSegue) {
-        if segue.sourceViewController is ItemDetailViewController{
-            let detailVC = segue.sourceViewController as! ItemDetailViewController
-            newTask = detailVC.newTask
-            currentTaskNumber += 1
-            addAndWrite(newTask)
-        }
-        prepare()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        loadValues()
-        self.tableView.reloadData()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - Table view data source
+
+    // MARK: - Table Info
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
         //TODO: fix^
@@ -222,5 +227,4 @@ class BucketListViewController: UITableViewController {
         
         return cell
     }
-    
 }
