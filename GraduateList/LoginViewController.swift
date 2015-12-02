@@ -50,34 +50,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let password = self.loginPass.text
         
         // Validate the text fields
-        if username!.characters.count < 5 {
-            alert("Invalid", message: "Username must be greater than 5 characters")
-        } else if password!.characters.count < 8 {
-            alert("Invalid", message: "Password must be greater than 8 characters")
-        } else {
-            // Run a spinner to show a task in progress
-            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-            spinner.startAnimating()
+        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+        spinner.startAnimating()
             
-            // Send a request to login
-            var trimmedLog = username!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            trimmedLog = trimmedLog.capitalizedString
+        // Send a request to login
+        var trimmedLog = username!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        trimmedLog = trimmedLog.capitalizedString
             
-            PFUser.logInWithUsernameInBackground(trimmedLog, password: password!, block: { (user, error) -> Void in
+        PFUser.logInWithUsernameInBackground(trimmedLog, password: password!, block: { (user, error) -> Void in
                 
-                // Stop the spinner
-                spinner.stopAnimating()
+            // Stop the spinner
+            spinner.stopAnimating()
                 
-                if ((user) != nil) {                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavController")
-                        self.presentViewController(viewController, animated: true, completion: nil)
-                    })
+            if ((user) != nil) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavController")
+                    self.presentViewController(viewController, animated: true, completion: nil)
+                })
                     
-                } else {
-                    self.alert("Error", message: "\(error)")
-                }
-            })
-        }
+            } else {
+                self.alert("Error", message: "\(error)")
+            }
+        })
     }
 }
