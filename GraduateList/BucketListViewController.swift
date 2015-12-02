@@ -8,19 +8,19 @@
 //  Tutorial from - https://github.com/deege/deegeu-swift-eventkit/tree/master/CalendarTest
 
 import UIKit
+import Parse
 
 class BucketListViewController: UITableViewController {
 
     // MARK: Stored Paths
     let path = NSTemporaryDirectory() + "saved3.txt"
-    let userPath = NSTemporaryDirectory() + "login2.txt"
     
     // MARK: Fields
     var passedIndex:Int = 0
     var tasks = [Task]()
     var newTask = Task()
     var passedTask:Task = Task()
-    var user = ""
+    var user = PFUser.currentUser()!.username
     var currentTaskNumber = 0
 
     var arrayValues:NSMutableArray = []
@@ -80,14 +80,14 @@ class BucketListViewController: UITableViewController {
                 if let index = tableView.indexPathForSelectedRow?.row{
                     dest.taskToPass = tasks[index]
                     dest.indexToPass = index
-                    dest.currUser = user
+                    dest.currUser = user!
                 }
             }
         }
         if segue.identifier == "addingNew" {
             if let dest = segue.destinationViewController as? ItemDetailViewController{
                 dest.count = currentTaskNumber
-                dest.user = user
+                dest.user = user!
             }
         }
     }
@@ -149,6 +149,17 @@ class BucketListViewController: UITableViewController {
         prepare()
     }
     
+    // MARK: Logout
+    @IBAction func logout(sender: AnyObject) {
+    // Send a request to log out a user
+        PFUser.logOut()
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Login")
+            self.presentViewController(viewController, animated: true, completion: nil)
+        })
+    }
+    
     // MARK: Helper function
     func prepare(){
         for val in tasks {
@@ -165,7 +176,7 @@ class BucketListViewController: UITableViewController {
     // MARK: Adding User
     func addUser(){
         userValues.removeAllObjects()
-        userValues.addObject(user)
+        userValues.addObject(user!)
 
         let text = ""
         do{

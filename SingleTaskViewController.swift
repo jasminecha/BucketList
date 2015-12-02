@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKitUI
+import Parse
 
 class SingleTaskViewController: UIViewController {
 
@@ -29,7 +30,6 @@ class SingleTaskViewController: UIViewController {
     // MARK: Items Needed for Setup\
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(taskToPass.user, "is user!!!")
         // Do any additional setup after loading the view.
     }
     
