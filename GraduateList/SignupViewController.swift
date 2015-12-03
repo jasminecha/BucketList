@@ -46,9 +46,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpButton(sender: AnyObject) {
         let username = self.usernameInput.text!.capitalizedString
         let password = self.passwordInput.text
-        let email = self.emailInput.text
-        let finalEmail = email!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        
+        var email = self.emailInput.text
+        //var emailRegex:NSRegularExpression
+        let emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        //try! emailRegex = NSRegularExpression(pattern: emailPattern, options: NSRegularExpressionOptions.CaseInsensitive)
+
+        email = email!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailPattern)
+        let passes = emailTest.evaluateWithObject(email)
         // Validate the text fields
         if username.characters.count < 5 {
             alert("Invalid", message: "Username must be greater than 5 characters")
@@ -57,7 +62,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         } else if password!.characters.count < 8 {
             alert("Invalid", message: "Password must be greater than 8 characters")
             
-        } else if email!.characters.count < 8 {
+        } else if email!.characters.count == 0 || !passes  {
             alert("Invalid", message: "Please enter a valid email address")
         } else {
             // Run a spinner to show a task in progress
@@ -68,7 +73,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             
             newUser.username = username
             newUser.password = password
-            newUser.email = finalEmail
+            newUser.email = email
             
             // Sign up the user asynchronously
             newUser.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
