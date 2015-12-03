@@ -12,6 +12,7 @@ class Task: NSObject {
     
     var name = ""
     var descrip = ""
+    var completedBool = false
     var completed = "Not completed yet"
     //   var img = UIImage
     var tags = []

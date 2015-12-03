@@ -95,7 +95,11 @@ class SingleTaskViewController: UIViewController {
     
     // MARK: Alert
     @IBAction func onPressComplete(sender: UIButton) {
-        alertComplete("Complete", message: "Mark as complete?")
+        if taskToPass.completed == "Completed" {
+            alert("Task already completed", message: "No extra credit")
+        } else {
+            alertComplete("Complete", message: "Mark as complete?")
+        }
     }
     
     func alertComplete(title: String, message: String){
