@@ -46,31 +46,40 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Login
     @IBAction func loginButton(sender: AnyObject) {
-        let username = self.loginUser.text
-        let password = self.loginPass.text
+        var username = self.loginUser.text
+        var password = self.loginPass.text
+        username = username!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        password = password!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        if username!.characters.count == 0 {
+            alert("No username",message:"Enter a username")
+        } else if password!.characters.count == 0 {
+            alert("No password",message:"Enter a password")
+        } else {
         
         // Validate the text fields
-        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-        spinner.startAnimating()
+            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+            spinner.startAnimating()
             
         // Send a request to login
-        var trimmedLog = username!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        trimmedLog = trimmedLog.capitalizedString
+            var trimmedLog = username!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            trimmedLog = trimmedLog.capitalizedString
             
-        PFUser.logInWithUsernameInBackground(trimmedLog, password: password!, block: { (user, error) -> Void in
+            PFUser.logInWithUsernameInBackground(trimmedLog, password: password!, block: { (user, error) -> Void in
                 
             // Stop the spinner
-            spinner.stopAnimating()
+                spinner.stopAnimating()
                 
-            if ((user) != nil) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavController")
-                    self.presentViewController(viewController, animated: true, completion: nil)
-                })
+                if ((user) != nil) {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavController")
+                        self.presentViewController(viewController, animated: true, completion: nil)
+                    })
                     
-            } else {
-                self.alert("Error", message: "\(error)")
-            }
-        })
+                } else {
+                    self.alert("Invalid login", message: "Try again or create a new account")
+                    //self.alert("Error", message: "\(error)")
+                }
+            })
+        }
     }
 }
