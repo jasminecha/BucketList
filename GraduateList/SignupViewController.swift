@@ -53,11 +53,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let passes = emailTest.evaluateWithObject(email)
         // Validate the text fields
         if username.characters.count < 5 {
-            alert("Invalid", message: "Username must be longer than 4 characters")
+            alert("Invalid", message: "Username must be at least 5 characters")
         } else if(username.containsString(" ")){
             alert("Invalid", message: "Username cannot contains spaces")
         } else if password!.characters.count < 8 {
-            alert("Invalid", message: "Password must be longer than 7 characters")
+            alert("Invalid", message: "Password must be at least 7 characters")
         } else if email!.characters.count == 0 || !passes  {
             alert("Invalid", message: "Please enter a valid email address")
         } else {

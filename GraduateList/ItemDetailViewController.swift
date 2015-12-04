@@ -94,7 +94,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 newTask.descrip = taskDescrip.text!
                 newTask.user = user
                 
-                //sendAddTask(newTask.name)
+                sendAddTask(newTask.name)
                 
                 return true
             }
